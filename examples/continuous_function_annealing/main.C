@@ -3,6 +3,8 @@
 #include <iostream>
 #include "main.h"
 #include "optimizing_functions.h"
+#include "sa_setups.h"
+#include "OpenCppSAU.h"
 
 using namespace std;
 
@@ -24,14 +26,9 @@ int main(){
   minlocs[4]=-8.3519922528629209E+00;
   minlocs[5]=-2.9760703957656585E+00;
 
-  cout << cool_opt << endl;
-
-  cout << func1(minlocs[0]) << endl;
-  cout << func2(minlocs[1]) << endl;
-  cout << func3(minlocs[2]) << endl;
-  cout << func4(minlocs[3]) << endl;
-  cout << func5(minlocs[4]) << endl;
-  cout << func6(minlocs[5]) << endl;
+  cout << "-----------------------------------function 1-----------------------------------" << endl;
+  setup_sa_func1();
+  test_link();
 
   return 0;
 }

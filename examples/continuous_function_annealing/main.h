@@ -1,7 +1,7 @@
 // Continuous simulated annealing example variables
 
-#ifndef main_program
-#define main_program
+#ifndef main_h
+#define main_h
 
 // Variables for reference values/locations
 double minvals[6];

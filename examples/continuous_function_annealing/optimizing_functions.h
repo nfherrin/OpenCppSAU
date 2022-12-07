@@ -2,7 +2,7 @@
 
 
 #ifndef optimizing_functions_h
-#define optimizing_functions
+#define optimizing_functions_h
 
 #include <math.h>
 
