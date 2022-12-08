@@ -29,6 +29,7 @@ int main(){
   cout << "-----------------------------------function 1-----------------------------------" << endl;
   setup_sa_func1();
   test_link();
+  cout << test_sa_obj.size_states << endl;
 
   return 0;
 }

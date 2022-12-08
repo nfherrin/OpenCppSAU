@@ -3,6 +3,8 @@
 #ifndef main_h
 #define main_h
 
+#include "OpenCppSAU.h"
+
 // Variables for reference values/locations
 double minvals[6];
 double minlocs[6];
@@ -18,5 +20,8 @@ double smax=10.0E+0;
 double damping=0.0E+0;
 double resvar=1.0E+0;
 bool damp_dyn=true;
+
+// Simulated Annealing object
+sa_type_base test_sa_obj;
 
 #endif
