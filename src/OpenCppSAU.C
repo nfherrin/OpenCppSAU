@@ -5,7 +5,6 @@
 
 using namespace std;
 
-void test_link(){
-  cout << "test link1" << endl;
-  return;
+void sa_type_base::optimize(){
+  cout << "This is an indicator that optimize is being reached." << endl;
 }
