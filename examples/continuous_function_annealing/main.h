@@ -22,6 +22,6 @@ double resvar=1.0E+0;
 bool damp_dyn=true;
 
 // Simulated Annealing object
-sa_type_base test_sa_obj;
+sa_cont_type test_sa_obj;
 
 #endif

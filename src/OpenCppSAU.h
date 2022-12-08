@@ -8,8 +8,8 @@
 //the base simulated annealing solver type
 class sa_type_base{
     public:
-        // number of points in a state
-        int size_states=0;
+        // number of values in a state
+        int state_size=0;
         // maximum number of SA iterations
         int max_step=100;
         // total number of steps it took
@@ -33,7 +33,46 @@ class sa_type_base{
         double resvar=0.0E0;
         // Cooling schedule, to be set by the cooling option
         double (*cool)(double tmin, double tmax, double alpha, int k, int n);
+        // optimization subroutine using simulated annealing
         void optimize();
+};
+
+// Combinatorial simulated annealing type
+class sa_comb_type: public sa_type_base {
+    public:
+        // combinatorial problem state array (for perturbing combinatorial problems)
+        int * state_curr;
+        // combinatorial problem neighbor array after pertubation
+        int * state_neigh;
+        // best energy state
+        int * state_best;
+        // energy calculation
+        double (*energy)(int *state_val);
+        // neighbor retrieval
+        int (*get_neigh)(int *s_curr);
+};
+
+class sa_cont_type: public sa_type_base{
+    public:
+        // combinatorial problem state array (for perturbing combinatorial problems)
+        double * state_curr;
+        // continuous problem neighbor array after pertubation
+        double * state_neigh;
+        // best energy state
+        double * state_best;
+        // damping factor
+        double damping=0.0E0;
+        // upper and lower bounds, will be set to bounds of initial state if not changed
+        double smin=0.0E0, smax=0.0E0;
+        // flag for dynamic damping, i.e. if true damping will reduce by a factor of 2 each time the
+        //    resvar value is found
+        bool damp_dyn=false;
+        // Number of parameters to perturb for each neighbor
+        int num_perturb=0;
+        // energy calculation
+        double (*energy)(double *state_val);
+        // neighbor retrieval
+        double (*get_neigh)(double *s_curr);
 };
 
 #endif

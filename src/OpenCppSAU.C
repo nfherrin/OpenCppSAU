@@ -5,6 +5,7 @@
 
 using namespace std;
 
+// Optimization subroutine for the base class, valid for both types
 void sa_type_base::optimize(){
   cout << "This is an indicator that optimize is being reached." << endl;
 }

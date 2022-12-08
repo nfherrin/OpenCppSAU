@@ -28,7 +28,7 @@ int main(){
 
   cout << "-----------------------------------function 1-----------------------------------" << endl;
   setup_sa_func1();
-  cout << test_sa_obj.size_states << endl;
+  cout << test_sa_obj.state_size << endl;
   test_sa_obj.optimize();
 
   return 0;
