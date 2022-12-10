@@ -46,8 +46,8 @@ class sa_comb_type: public sa_type_base {
         int * state_neigh;
         // best energy state
         int * state_best;
-        // energy calculation
-        double (*energy)(int *state_val);
+        // energy calculation. to be defined by the program using this utility
+        typedef double (*energy)(int *state_val);
         // neighbor retrieval
         int (*get_neigh)(int *s_curr);
 };
@@ -69,7 +69,7 @@ class sa_cont_type: public sa_type_base{
         bool damp_dyn=false;
         // Number of parameters to perturb for each neighbor
         int num_perturb=0;
-        // energy calculation
+        // energy calculation. to be defined by the program using this utility
         double (*energy)(double *state_val);
         // neighbor retrieval
         double (*get_neigh)(double *s_curr);

@@ -3,14 +3,18 @@
 #ifndef main_h
 #define main_h
 
+#include <iostream>
+#include <string>
 #include "OpenCppSAU.h"
+#include "optimizing_functions.h"
+#include "sa_setups.h"
 
 // Variables for reference values/locations
-double minvals[6];
-double minlocs[6];
+double *minvals;
+double *minlocs;
 
 // Variables for simulated annealing options
-int max_step=1000;
+int max_step=777;
 double t_max=100.0E+0;
 double t_min=1.0E-12;
 std::string cool_opt="QuadAdd";
@@ -22,6 +26,6 @@ double resvar=1.0E+0;
 bool damp_dyn=true;
 
 // Simulated Annealing object
-sa_cont_type test_sa_obj;
+sa_cont_type func_sa;
 
 #endif

@@ -2,7 +2,26 @@
 
 #include "sa_setups.h"
 
-void setup_sa_func1(){
+void setup_sa_func1(sa_cont_type &func_sa, int max_step, double t_max, double t_min,
+                    std::string cool_opt, bool mon_cool, double smin, double smax, double damping,
+                    double resvar, bool damp_dyn){
+  // Base information, see main.h for the given parameters.
+  func_sa.max_step=max_step;
+  func_sa.t_max=t_max;
+  func_sa.t_min=t_min;
+  func_sa.cool_opt=cool_opt;
+  func_sa.mon_cool=mon_cool;
+  func_sa.smin=smin;
+  func_sa.smax=smax;
+  func_sa.damping=damping;
+  func_sa.resvar=resvar;
+  func_sa.damp_dyn=damp_dyn;
+  // give energy function
+  func_sa.energy=&func1;
+  // give random initial guess
+  //ALLOCATE(func_sa%state_curr(1))
+  //CALL random_number(temp_r)
+  //func_sa%state_curr=temp_r*20.0d0-10.0d0
   return;
 }
 

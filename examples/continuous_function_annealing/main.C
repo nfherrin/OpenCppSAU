@@ -1,14 +1,15 @@
 // Continuous simulated annealing example
 
-#include <iostream>
 #include "main.h"
-#include "optimizing_functions.h"
-#include "sa_setups.h"
-#include "OpenCppSAU.h"
 
 using namespace std;
 
+double (*eg1_test_pt)(double *vals_to_test);
+
 int main(){
+
+  minvals=new double [6];
+  minlocs=new double [6];
 
   // Reference minimum point values
   minvals[0]=1.5449192781044832E+01;
@@ -27,9 +28,17 @@ int main(){
   minlocs[5]=-2.9760703957656585E+00;
 
   cout << "-----------------------------------function 1-----------------------------------" << endl;
-  setup_sa_func1();
-  cout << test_sa_obj.state_size << endl;
-  test_sa_obj.optimize();
+  setup_sa_func1(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
+                  resvar, damp_dyn);
+  cout << func_sa.max_step << endl;
+  cout << max_step << endl;
+  cout << minlocs[0] << endl;
+  cout << func2(&minlocs[1]) << endl;
+  eg1_test_pt=&func1;
+  cout << eg1_test_pt(minlocs) << endl;
+  // func_sa.energy=&func1;
+  cout << func_sa.energy(minlocs) << endl;
+  func_sa.optimize();
 
   return 0;
 }
