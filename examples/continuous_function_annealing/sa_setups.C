@@ -21,7 +21,6 @@ void setup_sa_func1(sa_cont_type &func_sa, int max_step, double t_max, double t_
   // give random initial guess
   func_sa.state_size=1;
   func_sa.state_curr=new double [func_sa.state_size];
-  srand(static_cast<unsigned int>(time(nullptr)));
   func_sa.state_curr[0]=(double)rand()/(double)RAND_MAX;
   func_sa.state_curr[0]=func_sa.state_curr[0]*2.0E+1-1.0E+1;
   return;

@@ -4,6 +4,8 @@
 #define OpenCppSAU_h
 
 #include <string>
+#include <iostream>
+#include <math.h>
 
 //the base simulated annealing solver type
 class sa_type_base{
@@ -32,7 +34,7 @@ class sa_type_base{
         //    when this temperature is reached. This temperature is halved every-time it is reached.
         double resvar=0.0E0;
         // Cooling schedule, to be set by the cooling option
-        double (*cool)(double tmin, double tmax, double alpha, int k, int n);
+        double (*cool)(sa_type_base &my_sa, int k);
         // optimization subroutine using simulated annealing
         void optimize(sa_type_base &my_sa);
         // virtual energy function to enable polymorphism (and later be overloaded)
@@ -51,7 +53,7 @@ class sa_comb_type: public sa_type_base {
         // energy calculation. to be defined by the program using this utility
         double (*energy)(int *state_val);
         // neighbor retrieval
-        int (*get_neigh)(int *s_curr);
+        void get_neigh(int *s_curr, int *s_neigh, int size_state);
 };
 
 class sa_cont_type: public sa_type_base{
@@ -74,7 +76,25 @@ class sa_cont_type: public sa_type_base{
         // energy calculation. to be defined by the program using this utility
         double (*energy)(double *state_val);
         // neighbor retrieval
-        double (*get_neigh)(double *s_curr);
+        void get_neigh(double *s_curr, double *s_neigh, double damping, double smax, double smin, int num_perturb, int size_state);
 };
+
+void set_cooling(sa_type_base &my_sa);
+
+double lin_mult_cool(sa_type_base &my_sa, int k);
+
+double exp_mult_cool(sa_type_base &my_sa, int k);
+
+double log_mult_cool(sa_type_base &my_sa, int k);
+
+double quad_mult_cool(sa_type_base &my_sa, int k);
+
+double lin_add_cool(sa_type_base &my_sa, int k);
+
+double quad_add_cool(sa_type_base &my_sa, int k);
+
+double exp_add_cool(sa_type_base &my_sa, int k);
+
+double trig_add_cool(sa_type_base &my_sa, int k);
 
 #endif
