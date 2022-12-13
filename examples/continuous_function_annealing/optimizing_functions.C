@@ -4,7 +4,6 @@
 #include <iostream>
 
 double func1(double *x){
-  std::cout << "weinhere1\n";
   return 10.0*sin(x[0])-0.05*(x[0]+2.0)+pow(x[0]-1.0,2)+20.0;
 }
 

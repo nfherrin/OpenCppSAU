@@ -34,20 +34,22 @@ class sa_type_base{
         // Cooling schedule, to be set by the cooling option
         double (*cool)(double tmin, double tmax, double alpha, int k, int n);
         // optimization subroutine using simulated annealing
-        void optimize();
+        void optimize(sa_type_base &my_sa);
+        // virtual energy function to enable polymorphism (and later be overloaded)
+        virtual void energy(){};
 };
 
 // Combinatorial simulated annealing type
 class sa_comb_type: public sa_type_base {
     public:
         // combinatorial problem state array (for perturbing combinatorial problems)
-        int * state_curr;
-        // combinatorial problem neighbor array after pertubation
-        int * state_neigh;
+        int * state_curr = NULL;
+        // combinatorial problem neighbor array after perturbation
+        int * state_neigh = NULL;
         // best energy state
-        int * state_best;
+        int * state_best = NULL;
         // energy calculation. to be defined by the program using this utility
-        typedef double (*energy)(int *state_val);
+        double (*energy)(int *state_val);
         // neighbor retrieval
         int (*get_neigh)(int *s_curr);
 };
@@ -55,11 +57,11 @@ class sa_comb_type: public sa_type_base {
 class sa_cont_type: public sa_type_base{
     public:
         // combinatorial problem state array (for perturbing combinatorial problems)
-        double * state_curr;
-        // continuous problem neighbor array after pertubation
-        double * state_neigh;
+        double * state_curr = NULL;
+        // continuous problem neighbor array after perturbation
+        double * state_neigh = NULL;
         // best energy state
-        double * state_best;
+        double * state_best = NULL;
         // damping factor
         double damping=0.0E0;
         // upper and lower bounds, will be set to bounds of initial state if not changed
