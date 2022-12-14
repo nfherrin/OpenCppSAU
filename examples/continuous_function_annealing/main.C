@@ -1,4 +1,4 @@
-// Continuous simulated annealing example
+// Solution for 6 different non-monotonic functions and their combination using SA.
 
 #include "main.h"
 
@@ -34,6 +34,7 @@ int main(){
   cout.precision(4);
   cout << scientific;
 
+  // function 1 solution
   cout << "-----------------------------------function 1-----------------------------------" << endl;
   setup_sa_func1(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -46,6 +47,7 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // function 2 solution
   cout << "-----------------------------------function 2-----------------------------------" << endl;
   setup_sa_func2(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -58,6 +60,7 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // function 3 solution
   cout << "-----------------------------------function 3-----------------------------------" << endl;
   setup_sa_func3(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -70,6 +73,7 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // function 4 solution
   cout << "-----------------------------------function 4-----------------------------------" << endl;
   setup_sa_func4(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -82,6 +86,7 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // function 5 solution
   cout << "-----------------------------------function 5-----------------------------------" << endl;
   setup_sa_func5(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -94,6 +99,7 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // function 6 solution
   cout << "-----------------------------------function 6-----------------------------------" << endl;
   setup_sa_func6(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
@@ -106,13 +112,15 @@ int main(){
   cout << endl;
   func_sa.clear(func_sa);
 
+  // increase number of steps since it will need more for multiple functions
   max_step=max_step*600;
+
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 6----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 6--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 6 variables
   func_sa.num_perturb=6;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
@@ -120,7 +128,7 @@ int main(){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
   min_eg_ref=0.0;
-  for(i=1; i<6; i++){
+  for(i=0; i<6; i++){
     min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
@@ -130,22 +138,19 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 5----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 5--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 5 variables
   func_sa.num_perturb=5;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
-  }
-  min_eg_ref=0.0;
-  for(i=1; i<6; i++){
-    min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
@@ -154,22 +159,19 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 4----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 4--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 4 variables
   func_sa.num_perturb=4;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
-  }
-  min_eg_ref=0.0;
-  for(i=1; i<6; i++){
-    min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
@@ -178,22 +180,19 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 3----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 3--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 3 variables
   func_sa.num_perturb=3;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
-  }
-  min_eg_ref=0.0;
-  for(i=1; i<6; i++){
-    min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
@@ -202,22 +201,19 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 2----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 2--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 2 variables
   func_sa.num_perturb=2;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
-  }
-  min_eg_ref=0.0;
-  for(i=1; i<6; i++){
-    min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
@@ -226,22 +222,19 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   //combined functions solution
-  cout << "-----------------------------combined funcs perturb 1----------------------------" << endl;
+  cout << "--------------------------combined functions perturb 1--------------------------" << endl;
   setup_sa_func_comb(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
+  // perturb 1 variables
   func_sa.num_perturb=1;
-  // perturb 6 variables
   func_sa.optimize(func_sa);
   // computer the combined error L2 norm
   err_comb_loc=0.0;
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
-  }
-  min_eg_ref=0.0;
-  for(i=1; i<6; i++){
-    min_eg_ref=min_eg_ref+minvals[i];
   }
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
@@ -250,6 +243,7 @@ int main(){
           << func_sa.state_best[2] << " " << func_sa.state_best[3] << " " << func_sa.state_best[4] << " " << func_sa.state_best[5] << endl;
   cout << "min_erg_err loc_err_L2  num_steps" << endl;
   cout << abs(func_sa.e_best-min_eg_ref)/abs(min_eg_ref) << "  " << err_comb_loc << "  " << func_sa.total_steps << endl;
+  func_sa.clear(func_sa);
 
   return 0;
 }

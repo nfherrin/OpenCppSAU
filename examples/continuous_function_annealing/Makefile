@@ -59,7 +59,7 @@ clean:
 
 #Intended to reset directory to fresh state with no exe or artifacts
 reset : clean
-	$(RM) ../$(EXE)*
+	$(RM) *.exe
 
 #Generics for source files
 %.o : %.C

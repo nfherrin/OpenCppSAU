@@ -39,7 +39,7 @@ class sa_type_base{
         void optimize(sa_type_base &my_sa);
         // virtual energy function to enable polymorphism (and later be overloaded)
         virtual void energy(){};
-        // function to clear an allocated structure
+        // function to clear an allocated object
         void clear(sa_type_base &my_sa);
 };
 
@@ -58,9 +58,10 @@ class sa_comb_type: public sa_type_base {
         void get_neigh(int *s_curr, int *s_neigh, int size_state);
 };
 
+// continuous simulated annealing type
 class sa_cont_type: public sa_type_base{
     public:
-        // combinatorial problem state array (for perturbing combinatorial problems)
+        // continuous problem state array (for perturbing continuous problem values)
         double * state_curr = NULL;
         // continuous problem neighbor array after perturbation
         double * state_neigh = NULL;
