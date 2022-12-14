@@ -12,5 +12,6 @@ double func3(double *x);
 double func4(double *x);
 double func5(double *x);
 double func6(double *x);
+double comb_eg(double *x);
 
 #endif

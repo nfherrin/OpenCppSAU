@@ -31,3 +31,7 @@ double func6(double *x){
   return 1.57E-6*pow(x[0],8)+3.89E-6*pow(x[0],7)-2.8E-4*pow(x[0],6)-4.28E-4*pow(x[0],5)+1.39E-2*pow(x[0],4)
           -4.68E-3*pow(x[0],3)-7.05E-2*pow(x[0],2)+9.53E-1*x[0]-2.87E0+20.E0;
 }
+
+double comb_eg(double *x){
+  return func1(&x[0])+func2(&x[1])+func3(&x[2])+func4(&x[3])+func5(&x[4])+func6(&x[5]);
+}
