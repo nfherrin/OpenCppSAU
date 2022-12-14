@@ -7,7 +7,7 @@ using namespace std;
 // Optimization subroutine for the base class, valid for both types
 void sa_type_base::optimize(sa_type_base &my_sa){
   int i, step;
-  double e_curr, t_curr;
+  double e_curr, t_curr, e_neigh, temp_r;
   e_curr=100000.0E0;
 
   set_cooling(my_sa);
@@ -64,20 +64,91 @@ void sa_type_base::optimize(sa_type_base &my_sa){
   }
   t_curr=my_sa.t_max;
   step=0;
-  cout << t_curr << " " << step << endl;
   my_sa.total_steps=0;
   if(my_sa.prog_bar)cout << "PROGRESS:";
   while(step < my_sa.max_step && t_curr > my_sa.t_min){
     my_sa.total_steps++;
     if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
       sa_ptr->get_neigh(sa_ptr->state_curr, sa_ptr->state_neigh, my_sa.state_size);
+      e_neigh=sa_ptr->energy(sa_ptr->state_neigh);
     }
     else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
       sa_ptr->get_neigh(sa_ptr->state_curr, sa_ptr->state_neigh, sa_ptr->damping, sa_ptr->smax, sa_ptr->smin, sa_ptr->num_perturb, my_sa.state_size);
+      e_neigh=sa_ptr->energy(sa_ptr->state_neigh);
     }
-    step++;
-    exit(1);
-    cout << my_sa.total_steps << endl;
+    temp_r=(double)rand()/(double)RAND_MAX;
+    if(temp_r <= accept_prob(e_curr, e_neigh, t_curr)){
+      step++;
+      if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*";
+      if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_curr[i]=sa_ptr->state_neigh[i];
+        }
+      }
+      else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_curr[i]=sa_ptr->state_neigh[i];
+        }
+      }
+      e_curr=e_neigh;
+    }
+    else{
+      temp_r=(double)rand()/(double)RAND_MAX;
+      if(temp_r <= 0.01){
+        step++;
+        if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*";
+      }
+    }
+    // cool the temperature
+    t_curr=my_sa.cool(my_sa, step);
+    if(e_curr < my_sa.e_best){
+      my_sa.e_best=e_curr;
+      if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_best[i]=sa_ptr->state_curr[i];
+        }
+      }
+      else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_best[i]=sa_ptr->state_curr[i];
+        }
+      }
+    }
+    //perform non-monotonic adjustment if applicable
+    if(!my_sa.mon_cool)t_curr=t_curr*(1.0+(e_curr-my_sa.e_best)/e_curr);
+    //rewind to best value of reset is enabled
+    if(abs(t_curr) <= my_sa.resvar){
+      my_sa.resvar=my_sa.resvar/2.0;
+      e_curr=my_sa.e_best;
+      if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_curr[i]=sa_ptr->state_best[i];
+        }
+      }
+      else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
+        for(i=0; i<my_sa.state_size; i++){
+          sa_ptr->state_curr[i]=sa_ptr->state_best[i];
+          //adjust damping of dynamic damping is enabled
+          if(sa_ptr->damp_dyn)sa_ptr->damping=sa_ptr->damping/2.0;
+        }
+      }
+    }
+  }
+  if(my_sa.prog_bar)cout << "*" << endl;
+
+  // select the best state we ended up finding
+  if(abs(t_curr) <= my_sa.resvar){
+    e_curr=my_sa.e_best;
+    if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
+      for(i=0; i<my_sa.state_size; i++){
+        sa_ptr->state_curr[i]=sa_ptr->state_best[i];
+      }
+    }
+    else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
+      for(i=0; i<my_sa.state_size; i++){
+        sa_ptr->state_curr[i]=sa_ptr->state_best[i];
+      }
+    }
   }
 }
 
@@ -182,7 +253,6 @@ void sa_cont_type::get_neigh(double *s_curr, double *s_neigh, double damping, do
   for(i=0; i < size_state; i++){
     s_neigh[i]=s_curr[i];
   }
-  cout << s_neigh[0] << endl;
   if(num_perturb <= 0 || num_perturb >= size_state){
     for(i=0; i < size_state; i++){
       temp_r=(double)rand()/(double)RAND_MAX;
@@ -226,6 +296,22 @@ void sa_cont_type::get_neigh(double *s_curr, double *s_neigh, double damping, do
       }
     }
   }
+}
 
-  cout << s_neigh[0] << endl;
+double accept_prob(double e_current,double e_neigh,double t_current){
+  double delta_e, aprob;
+
+  delta_e=e_neigh-e_current;
+  if(-delta_e/t_current <= -700.0E0){
+    aprob=0.0;
+  }
+  else if(-delta_e/t_current >= 700.0E0){
+    aprob=10.0;
+  }
+  else{
+    aprob=exp(-delta_e/t_current);
+  }
+  if(delta_e <= 0.0)aprob=10.0;
+  if(isnan(aprob))aprob=0.0;
+  return aprob;
 }

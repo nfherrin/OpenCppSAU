@@ -16,6 +16,7 @@ void setup_sa_func1(sa_cont_type &func_sa, int max_step, double t_max, double t_
   func_sa.damping=damping;
   func_sa.resvar=resvar;
   func_sa.damp_dyn=damp_dyn;
+  func_sa.prog_bar=true;
   // give energy function
   func_sa.energy=&func1;
   // give random initial guess

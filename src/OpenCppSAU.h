@@ -97,4 +97,6 @@ double exp_add_cool(sa_type_base &my_sa, int k);
 
 double trig_add_cool(sa_type_base &my_sa, int k);
 
+double accept_prob(double e_current,double e_neigh,double t_current);
+
 #endif
