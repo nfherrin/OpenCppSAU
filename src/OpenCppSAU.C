@@ -19,6 +19,11 @@ void sa_type_base::optimize(sa_type_base &my_sa){
   e_neigh=0.0;
   e_curr=100000.0E0;
 
+  if(my_sa.state_size <= 0){
+    cout << "error, size/dimensionality of states not specified." << endl;
+    exit(1);
+  }
+
   //set the cooling function (already set and will do nothing if user custom function)
   set_cooling(my_sa);
 
