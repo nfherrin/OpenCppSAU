@@ -315,3 +315,39 @@ double accept_prob(double e_current,double e_neigh,double t_current){
   if(isnan(aprob))aprob=0.0;
   return aprob;
 }
+
+void sa_type_base::clear(sa_type_base &my_sa){
+
+  // reset to default all variables
+  my_sa.state_size=0;
+  my_sa.max_step=100;
+  my_sa.total_steps=0;
+  my_sa.alpha=1.0E-2;
+  my_sa.t_max=1.0E+2;
+  my_sa.t_min=0.0E0;
+  my_sa.e_best=1.0E+307;
+  my_sa.cool_opt="LinAdd";
+  my_sa.mon_cool=true;
+  my_sa.prog_bar=false;
+  my_sa.resvar=0.0E0;
+  my_sa.cool=NULL;
+
+  // combinatorial or continuous specific defaulting
+  if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
+    sa_ptr->state_curr = NULL;
+    sa_ptr->state_neigh = NULL;
+    sa_ptr->state_best = NULL;
+    sa_ptr->energy = NULL;
+  }
+  else if(sa_cont_type *sa_ptr = dynamic_cast<sa_cont_type*>(&my_sa)){
+    sa_ptr->state_curr = NULL;
+    sa_ptr->state_neigh = NULL;
+    sa_ptr->state_best = NULL;
+    sa_ptr->damping=0.0E0;
+    sa_ptr->smin=0.0E0;
+    sa_ptr->smax=0.0E0;
+    sa_ptr->damp_dyn=false;
+    sa_ptr->num_perturb=0;
+    sa_ptr->energy = NULL;
+  }
+}

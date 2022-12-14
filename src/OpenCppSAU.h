@@ -39,6 +39,8 @@ class sa_type_base{
         void optimize(sa_type_base &my_sa);
         // virtual energy function to enable polymorphism (and later be overloaded)
         virtual void energy(){};
+        // function to clear an allocated structure
+        void clear(sa_type_base &my_sa);
 };
 
 // Combinatorial simulated annealing type
