@@ -14,7 +14,7 @@ double *minvals;
 double *minlocs;
 
 // Variables for simulated annealing options
-int max_step=777;
+int max_step=1000;
 double t_max=100.0E+0;
 double t_min=1.0E-12;
 std::string cool_opt="QuadAdd";

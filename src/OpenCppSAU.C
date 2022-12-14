@@ -65,7 +65,7 @@ void sa_type_base::optimize(sa_type_base &my_sa){
   t_curr=my_sa.t_max;
   step=0;
   my_sa.total_steps=0;
-  if(my_sa.prog_bar)cout << "PROGRESS:";
+  if(my_sa.prog_bar)cout << "PROGRESS:" << flush;
   while(step < my_sa.max_step && t_curr > my_sa.t_min){
     my_sa.total_steps++;
     if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
@@ -79,7 +79,7 @@ void sa_type_base::optimize(sa_type_base &my_sa){
     temp_r=(double)rand()/(double)RAND_MAX;
     if(temp_r <= accept_prob(e_curr, e_neigh, t_curr)){
       step++;
-      if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*";
+      if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*" << flush;
       if(sa_comb_type *sa_ptr = dynamic_cast<sa_comb_type*>(&my_sa)){
         for(i=0; i<my_sa.state_size; i++){
           sa_ptr->state_curr[i]=sa_ptr->state_neigh[i];
@@ -96,7 +96,7 @@ void sa_type_base::optimize(sa_type_base &my_sa){
       temp_r=(double)rand()/(double)RAND_MAX;
       if(temp_r <= 0.01){
         step++;
-        if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*";
+        if(my_sa.prog_bar && (step % (int)round(1.0*my_sa.max_step/91.0)) == 0)cout << "*" << flush;
       }
     }
     // cool the temperature

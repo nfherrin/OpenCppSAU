@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
 
-  //srand(static_cast<unsigned int>(time(nullptr)));
+  srand(static_cast<unsigned int>(time(nullptr)));
 
   minvals=new double [6];
   minlocs=new double [6];
@@ -31,9 +31,14 @@ int main(){
   setup_sa_func1(func_sa, max_step, t_max, t_min, cool_opt, mon_cool, smin, smax, damping,
                   resvar, damp_dyn);
   func_sa.optimize(func_sa);
-
-  cout << "best energy " << func_sa.e_best << endl;
-  cout << "best state " << func_sa.state_best[0] << endl;
+  cout.precision(4);
+  cout << scientific;
+  cout << "       min_erg     min_loc" << endl;
+  cout << "ref: " << minvals[0] << " " << minlocs[0] << endl;;
+  cout << "SA:  " << func_sa.e_best << " " << func_sa.state_best[0] << endl;
+  cout << "min_erg_err min_loc_err  num_steps" << endl;
+  cout << abs(minvals[0]-func_sa.e_best)/abs(minvals[0]) << "  " << abs(minlocs[0]-func_sa.state_best[0])/abs(minlocs[0]) << "     " << func_sa.total_steps << endl;
+  cout << endl;
 
   return 0;
 }
