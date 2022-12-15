@@ -24,18 +24,18 @@ SIMANN := ../../src
 #rule declaration. Add these items to FILTER
 #-----------------------------------------------------------------------------------
 
-SRC := main.C \
-	   optimizing_functions.C \
-	   sa_setups.C
+SRC := main.cpp \
+	   optimizing_functions.cpp \
+	   sa_setups.cpp
 
-OBJ := $(SRC:.C=.o)
+OBJ := $(SRC:.cpp=.o)
 
 #-----------------------------------------------------------------------------------
 #Add simple compile SIMANN files
 #-----------------------------------------------------------------------------------
-SIMANN_SRC := $(SIMANN)/OpenCppSAU.C
+SIMANN_SRC := $(SIMANN)/OpenCppSAU.cpp
 
-SIMANN_OBJ := $(patsubst %.C,%.o,$(notdir $(SIMANN_SRC)))
+SIMANN_OBJ := $(patsubst %.cpp,%.o,$(notdir $(SIMANN_SRC)))
 
 #-----------------------------------------------------------------------------------
 #Phony targets for cleaning and building
@@ -55,20 +55,20 @@ coverage: $(EXEC_FILE)
 
 #Intended to clean up compilation artifacts but leave executable & coverage
 clean:
-	$(RM) $(OBJ) $(SIMANN_OBJ) *.mod
+	$(RM) $(OBJ) $(SIMANN_OBJ) *.mod *.gcno
 
 #Intended to reset directory to fresh state with no exe or artifacts
 reset : clean
 	$(RM) *.exe
 
 #Generics for source files
-%.o : %.C
+%.o : %.cpp
 	$(FC) $(OPT) -I $(SIMANN) -c $<
 
 #-----------------------------------------------------------------------------------
 #Generics for contrib files
 #-----------------------------------------------------------------------------------
-$(SIMANN_OBJ): %.o: $(filter %.C, $(SIMANN_SRC))
+$(SIMANN_OBJ): %.o: $(filter %.cpp, $(SIMANN_SRC))
 	$(FC) -c $(OPT) $^
 
 #Executable rule
