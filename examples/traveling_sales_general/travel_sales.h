@@ -7,7 +7,7 @@
 #include <math.h>
 #include "OpenCppSAU.h"
 
-void ts_init(int num_customers, int prob_dim);
+void ts_init(int num_customers, int prob_dim, double &sort_best);
 
 void bubble_sort(int * a);
 

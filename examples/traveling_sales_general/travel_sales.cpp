@@ -13,7 +13,7 @@ double min_len=1.0E+308;
 double ** cust_locs;
 
 //traveling salesman initialization problem
-void ts_init(int num_customers, int prob_dim){
+void ts_init(int num_customers, int prob_dim, double &sort_best){
   int i,j;
   double num_perms, est_time;
 
@@ -62,6 +62,8 @@ void ts_init(int num_customers, int prob_dim){
     min_len=path_len(min_ord);
     cout << "1D Computed minimum path length:  " << min_len << " or " << cust_locs[min_ord[num_customers-1]][0]-cust_locs[min_ord[0]][0] << endl;
   }
+
+  sort_best=min_len;
 }
 
 double path_len(int * state_ord){

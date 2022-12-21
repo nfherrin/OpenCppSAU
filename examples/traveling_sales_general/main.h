@@ -17,7 +17,7 @@ int prob_dim=1;
 int num_customers=10;
 
 // best from sa and sort
-double sa_best, sort_best;
+double sort_best;
 
 // Simulated annealing object for the traveling salesman problem
 sa_comb_type ts_simanneal;
