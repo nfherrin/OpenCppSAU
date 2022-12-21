@@ -127,6 +127,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   min_eg_ref=0.0;
   for(i=0; i<6; i++){
     min_eg_ref=min_eg_ref+minvals[i];
@@ -152,6 +153,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
           << " " << minlocs[4] << " " << minlocs[5] << endl;
@@ -173,6 +175,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
           << " " << minlocs[4] << " " << minlocs[5] << endl;
@@ -194,6 +197,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
           << " " << minlocs[4] << " " << minlocs[5] << endl;
@@ -215,6 +219,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
           << " " << minlocs[4] << " " << minlocs[5] << endl;
@@ -236,6 +241,7 @@ int main(){
   for(i=1; i<6; i++){
     err_comb_loc=err_comb_loc+pow(abs(func_sa.state_best[i]-minlocs[i])/abs(minlocs[i]),2);
   }
+  err_comb_loc=sqrt(err_comb_loc);
   cout << "       min_erg   min_loc_1   min_loc_2  min_loc_3  min_loc_4   min_loc_5  min_loc_6" << endl;
   cout << "Ref: " << min_eg_ref << " " << minlocs[0] << " " << minlocs[1] << " " << minlocs[2] << " " << minlocs[3]
           << " " << minlocs[4] << " " << minlocs[5] << endl;

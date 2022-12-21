@@ -310,7 +310,7 @@ void sa_comb_type::get_neigh(int *s_curr, int *s_neigh, int size_state){
     diff=0.0;
     //make sure they're actually different
     for(i=0; i < size_state; i++){
-      diff=abs(1.0*s_neigh[i]-1.0*s_curr[i]);
+      diff+=abs(1.0*s_neigh[i]-1.0*s_curr[i]);
     }
   }
 }
